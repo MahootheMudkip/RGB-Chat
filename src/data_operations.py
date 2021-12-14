@@ -36,8 +36,7 @@ def add_user(db, email, f_name, l_name, password, bio, image_url):
 
     cur.execute(query)
 
-    idthing = cur.fetchone()
-    print(idthing)
-    db.commit()
+    uid = cur.fetchone()[0] - 1
+    print(uid)
 
-    return idthing[0] - 1
+    return uid
