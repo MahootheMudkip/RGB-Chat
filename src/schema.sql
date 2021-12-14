@@ -3,7 +3,7 @@ CREATE DOMAIN EmailType AS VARCHAR(128) CHECK (VALUE ~ '^[A-Za-z0-9._%+-]+@[A-Za
 
 CREATE TABLE Users (
     id          SERIAL,
-    email       EmailType,
+    email       EmailType UNIQUE,
     f_name      NameType,
     l_name      NameType,
     password    VARCHAR(50) NOT NULL,
