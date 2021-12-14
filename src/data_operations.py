@@ -6,11 +6,7 @@ import psycopg2
 def on_connection(function):
     def wrapper(*args, **kwargs):
         result = ''
-        db = psycopg2.connect(user="postgres",
-                              password="RGBadmin",
-                              host="localhost",
-                              port="8080",
-                              database="postgres")
+        db = psycopg2.connect(database="rgbchat")
         try:
             result = function(db, *args, **kwargs)
         except Exception as e:
@@ -24,14 +20,14 @@ def on_connection(function):
 
 
 @on_connection
-def add_user(db, email, f_name, l_name, password, bio, profile_img_url):
+def add_user(db, email, f_name, l_name, password, bio, image_url):
 
     cur = db.cursor()
     query = '''
-        INSERT INTO Users(email, first_name, last_name, password, bio, image_url)
+        INSERT INTO Users(email, f_name, l_name, password, bio, image_url)
         VALUES (%s, %s, %s, %s, %s, %s);
     '''
-    cur.execute(query, (email, f_name, l_name, password, bio, profile_img_url))
+    cur.execute(query, (email, f_name, l_name, password, bio, image_url))
 
     query = '''
         SELECT COUNT(*)
